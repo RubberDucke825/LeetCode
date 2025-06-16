@@ -1,0 +1,31 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<Point> minHeap = new PriorityQueue<Point>();
+        for (int[] p : points){
+            minHeap.offer(new Point(p[0],p[1]));
+        }
+        int[][] result = new int[k][2];
+        for (int i = 0;i<k;i++){
+            Point p = minHeap.poll();
+            result[i] = new int[] {p.x,p.y};
+
+        }
+        return result;
+    }
+    public class Point implements Comparable<Point> {
+        int x;
+        int y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+        public int compareTo(Point other) {
+            return this.getDistSquared() - other.getDistSquared();
+        }
+        private int getDistSquared() {
+            return x * x + y * y;
+        }
+    }
+        
+}
